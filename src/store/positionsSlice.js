@@ -4,7 +4,8 @@ export const positionsSlice = createSlice({
     name: "positions",
     initialState: {
         value: [
-            "React Frontend Developer"
+            "React Frontend Developer",
+            "Backend Developer"
         ]
     },
 

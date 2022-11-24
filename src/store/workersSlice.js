@@ -20,10 +20,13 @@ export const workersSlice = createSlice({
     reducers: {
         updateWorker: (state, action) => {
             state.value = [ ...state.value.filter((worker) => worker.id !== action.payload.id), action.payload]
+        },
+        createWorker: (state, action) => {
+            state.value = [ ...state.value, action.payload]
         }
     }
 })
 
-export const {updateWorker} = workersSlice.actions;
+export const {updateWorker, createWorker} = workersSlice.actions;
 
 export default workersSlice.reducer
