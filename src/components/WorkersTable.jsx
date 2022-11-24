@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Modal, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
 import { useSelector } from 'react-redux';
 import WorkersTableRow from './WorkersTableRow';
-import { Box } from '@mui/system';
+import WorkerModal from './WorkerModal';
 
 const WorkersTable = () => {
     const [isWorkerModal, setIsWorkerModal] = useState(false)
@@ -27,55 +27,12 @@ const WorkersTable = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {workers.map((worker) =>
+                    {workers.length ? workers.map((worker) =>
                         <WorkersTableRow key={worker.tabel} worker={worker} selectWorker={selectWorker}/>
-                    )}
+                    ) : null}
                 </TableBody>
             </Table>
-            <Modal open={isWorkerModal} onClose={closeWorkerModal}>
-                <Box sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: 600,
-                    backgroundColor: 'white',
-                    borderRadius: 2,
-                    p: 4,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 1,
-                    '&:focus-visible': {
-                        outline: 'none',
-                    }
-                }}>
-                    <TextField
-                        label='Фамилия'
-                        value={selectedWorker.surname}
-                        fullWidth
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                    />
-                    <TextField
-                        label='Имя'
-                        value={selectedWorker.name}
-                        fullWidth
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                    />
-                    <TextField
-                        label='Отчество'
-                        value={selectedWorker.secondName}
-                        fullWidth
-                        InputProps={{
-                            readOnly: true,
-                        }}
-                    />
-                </Box>
-            </Modal>
+            <WorkerModal isOpen={isWorkerModal} onClose={closeWorkerModal} selectedWorker={selectedWorker} />
         </TableContainer>
     )
 }
