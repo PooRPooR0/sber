@@ -4,13 +4,14 @@ import { Autocomplete, Button, Fab, Modal, TextField, Typography } from '@mui/ma
 import { Box } from '@mui/system';
 import { Edit } from '@mui/icons-material';
 import { updateWorker } from '../store/workersSlice';
+import useAutoOptions from '../hooks/useAutoOptions';
 
 const WorkerModal = ({isOpen, onClose, selectedWorker}) => {
     const [editMode, setEditMode] = useState(false)
     const [editableWorker, setEditableWorker] = useState({})
+    const fields = useSelector((state) => state.fields.value)
+    const {autoOptions} = useAutoOptions()
 
-    const positions = useSelector((state) => state.positions.value)
-    const units = useSelector((state) => state.units.value)
     const dispatch = useDispatch()
 
     const enterEditMode = () => {
@@ -30,6 +31,14 @@ const WorkerModal = ({isOpen, onClose, selectedWorker}) => {
     const cancelChanges = () => {
         setEditableWorker({})
         leaveEditMode()
+    }
+
+    const getFieldValue = (fieldName) => {
+        return editMode ? editableWorker[fieldName] : selectedWorker[fieldName]
+    }
+
+    const onChangeField = (fieldName, value) => {
+        setEditableWorker({...editableWorker, [fieldName]: value})
     }
 
     return (
@@ -52,72 +61,36 @@ const WorkerModal = ({isOpen, onClose, selectedWorker}) => {
                 }
             }}>
                 <Typography variant="h6" marginBottom={2}>Сведения о сотруднике {editMode ? '(edit)' : null}</Typography>
-                <TextField
-                    label='Фамилия'
-                    value={editMode ? editableWorker.surname : selectedWorker.surname}
-                    onChange={(event) => setEditableWorker({...editableWorker, surname: event.target.value})}
-                    fullWidth
-                    InputProps={{
-                        readOnly: !editMode,
-                    }}
-                />
-                <TextField
-                    label='Имя'
-                    value={editMode ? editableWorker.name : selectedWorker.name}
-                    onChange={(event) => setEditableWorker({...editableWorker, name: event.target.value})}
-                    fullWidth
-                    InputProps={{
-                        readOnly: !editMode,
-                    }}
-                />
-                <TextField
-                    label='Отчество'
-                    value={editMode ? editableWorker.secondName : selectedWorker.secondName}
-                    onChange={(event) => setEditableWorker({...editableWorker, secondName: event.target.value})}
-                    fullWidth
-                    InputProps={{
-                        readOnly: !editMode,
-                    }}
-                />
-                <TextField
-                    label='День рождения'
-                    value={editMode ? editableWorker.birthday : selectedWorker.birthday}
-                    onChange={(event) => setEditableWorker({...editableWorker, birthday: event.target.value})}
-                    type='date'
-                    fullWidth
-                    InputProps={{
-                        readOnly: !editMode,
-                    }}
-                />
-                <TextField
-                    label='Табельный номер'
-                    value={editMode ? editableWorker.tabel : selectedWorker.tabel}
-                    onChange={(event) => setEditableWorker({...editableWorker, tabel: event.target.value})}
-                    fullWidth
-                    InputProps={{
-                        readOnly: !editMode,
-                    }}
-                />
-                <Autocomplete
-                    disablePortal
-                    id="position"
-                    options={positions}
-                    fullWidth
-                    value={editMode ? editableWorker.position : selectedWorker.position}
-                    onChange={(event, newValue) => setEditableWorker({...editableWorker, position: newValue})}
-                    readOnly={!editMode}
-                    renderInput={(params) => <TextField {...params} fullWidth label="Должность" />}
-                />
-                <Autocomplete
-                    disablePortal
-                    id="position"
-                    options={units}
-                    fullWidth
-                    value={editMode ? editableWorker.unit : selectedWorker.unit}
-                    onChange={(event, newValue) => setEditableWorker({...editableWorker, unit: newValue})}
-                    readOnly={!editMode}
-                    renderInput={(params) => <TextField {...params} fullWidth label="Отдел" />}
-                />
+                {fields.filter(field => field.showInDetails).map(field => {
+                    if (field.type === "autocomplete")
+                        return (
+                            <Autocomplete
+                                disablePortal
+                                id={field.name}
+                                key={field.name}
+                                readOnly={!editMode}
+                                fullWidth
+                                options={autoOptions(field.options)}
+                                value={getFieldValue(field.name)}
+                                onChange={(event, newValue) => onChangeField(field.name, newValue)}
+                                renderInput={(params) => <TextField {...params} fullWidth label={field.label} />}
+                            />
+                        )
+                    return (
+                        <TextField
+                            id={field.name}
+                            key={field.name}
+                            label={field.label}
+                            type={field.type}
+                            value={getFieldValue(field.name)}
+                            onChange={(event) => onChangeField(field.name, event.target.value)}
+                            fullWidth
+                            InputProps={{
+                                readOnly: !editMode,
+                            }}
+                        />
+                    )
+                })}
                 <Box sx={{width: '100%'}}>
                     {!editMode ?
                     <Fab color="primary" aria-label="edit" onClick={enterEditMode}>

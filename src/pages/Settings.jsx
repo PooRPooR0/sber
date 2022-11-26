@@ -21,7 +21,7 @@ const Settings = () => {
                                 onChange={() => dispatch(changeShowInDetails(field.name))}
                             />
                         }
-                        label={field.name}
+                        label={field.label}
                     />
                 )
                 : null

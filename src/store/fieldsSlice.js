@@ -5,32 +5,48 @@ export const fieldsSlice = createSlice({
     initialState: {
         value: [
             {
-                name: "Фамилия",
-                showInDetails: true
+                name: "surname",
+                label: "Фамилия",
+                showInDetails: true,
+                type: "text",
             },
             {
-                name: "Имя",
-                showInDetails: true
+                name: "name",
+                label: "Имя",
+                showInDetails: true,
+                type: "text"
             },
             {
-                name: "Отчество",
-                showInDetails: true
+                name: "secondName",
+                label: "Отчество",
+                showInDetails: true,
+                type: "text"
             },
             {
-                name: "День рождения",
-                showInDetails: true
+                name: "birthday",
+                label: "День рождения",
+                showInDetails: true,
+                type: "date"
             },
             {
-                name: "Табельный номер",
-                showInDetails: true
+                name: "tabel",
+                label: "Табельный номер",
+                showInDetails: true,
+                type: "number"
             },
             {
-                name: "Должность",
-                showInDetails: true
+                name: "position",
+                label: "Должность",
+                showInDetails: true,
+                type: "autocomplete",
+                options: "positions"
             },
             {
-                name: "Отдел",
-                showInDetails: true
+                name: "unit",
+                label: "Отдел",
+                showInDetails: true,
+                type: "autocomplete",
+                options: "units"
             },
         ]
     },

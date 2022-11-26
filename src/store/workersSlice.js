@@ -9,7 +9,7 @@ export const workersSlice = createSlice({
                 surname: "Kasenbekov",
                 name: "Oleg",
                 secondName: "Rinatovich",
-                birthday: "2022-09-01",
+                birthday: "2002-04-14",
                 tabel: 1,
                 position: "React Frontend Developer",
                 unit: "Отдел 1",
