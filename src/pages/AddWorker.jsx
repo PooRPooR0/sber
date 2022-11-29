@@ -1,7 +1,7 @@
 import { Container } from '@mui/system'
 import React from 'react'
 import Header from '../components/Header'
-import NewWorkerForm from '../components/NewWorkerForm'
+import NewWorkerForm from '../components/forms/NewWorkerForm'
 
 const AddWorker = () => {
   return (

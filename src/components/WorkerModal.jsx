@@ -1,46 +1,9 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { Autocomplete, Button, Fab, Modal, TextField, Typography } from '@mui/material';
+import React from 'react'
+import { Modal } from '@mui/material';
 import { Box } from '@mui/system';
-import { Edit } from '@mui/icons-material';
-import { updateWorker } from '../store/workersSlice';
-import useAutoOptions from '../hooks/useAutoOptions';
+import UpdateWorkerForm from './forms/UpdateWorkerForm';
 
 const WorkerModal = ({isOpen, onClose, selectedWorker}) => {
-    const [editMode, setEditMode] = useState(false)
-    const [editableWorker, setEditableWorker] = useState({})
-    const fields = useSelector((state) => state.fields.value)
-    const {autoOptions} = useAutoOptions()
-
-    const dispatch = useDispatch()
-
-    const enterEditMode = () => {
-        setEditableWorker(selectedWorker)
-        setEditMode(true)
-    }
-
-    const leaveEditMode = () => setEditMode(false)
-
-    const saveChanges = () => {
-        dispatch(updateWorker({...editableWorker, changeDate: Date.now()}))
-        setEditableWorker({})
-        leaveEditMode()
-        onClose()
-    }
-
-    const cancelChanges = () => {
-        setEditableWorker({})
-        leaveEditMode()
-    }
-
-    const getFieldValue = (fieldName) => {
-        return editMode ? editableWorker[fieldName] : selectedWorker[fieldName]
-    }
-
-    const onChangeField = (fieldName, value) => {
-        setEditableWorker({...editableWorker, [fieldName]: value})
-    }
-
     return (
         <Modal open={isOpen} onClose={onClose}>
             <Box sx={{
@@ -60,7 +23,7 @@ const WorkerModal = ({isOpen, onClose, selectedWorker}) => {
                     outline: 'none',
                 }
             }}>
-                <Typography variant="h6" marginBottom={2}>Сведения о сотруднике {editMode ? '(edit)' : null}</Typography>
+                {/* <Typography variant="h6" marginBottom={2}>Сведения о сотруднике {editMode ? '(edit)' : null}</Typography>
                 {fields.filter(field => field.showInDetails).map(field => {
                     if (field.type === "autocomplete")
                         return (
@@ -102,7 +65,8 @@ const WorkerModal = ({isOpen, onClose, selectedWorker}) => {
                         <Button variant="contained" onClick={saveChanges}>Сохранить</Button> 
                     </Box>
                     }
-                </Box>
+                </Box> */}
+                <UpdateWorkerForm selectedWorker={selectedWorker} onClose={onClose}/>
             </Box>
         </Modal>
     )

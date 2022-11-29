@@ -54,7 +54,7 @@ export const fieldsSlice = createSlice({
         changeShowInDetails: (state, action) => {
             const index = state.value.findIndex(field => field.name === action.payload)
             state.value[index].showInDetails = !state.value[index].showInDetails
-        } 
+        }
     }
 })
 
