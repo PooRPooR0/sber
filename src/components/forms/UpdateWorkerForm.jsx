@@ -63,6 +63,7 @@ const UpdateWorkerForm = ({selectedWorker={}, onClose}) => {
                             onChange={(event, newValue) => handleChangeAutoField(field.name, newValue)}
                             renderInput={(params) => <TextField {...params} fullWidth label={field.label} />}
                             readOnly={!editMode}
+                            disableClearable
                         />
                     )
                 return (

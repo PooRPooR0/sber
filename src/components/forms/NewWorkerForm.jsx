@@ -50,6 +50,7 @@ const NewWorkerForm = () => {
                             value={formik.values[field.name]}
                             onChange={(event, newValue) => handleChangeAutoField(field.name, newValue)}
                             renderInput={(params) => <TextField {...params} fullWidth label={field.label} />}
+                            disableClearable
                         />
                     )
                 return (
