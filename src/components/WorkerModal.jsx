@@ -23,49 +23,6 @@ const WorkerModal = ({isOpen, onClose, selectedWorker}) => {
                     outline: 'none',
                 }
             }}>
-                {/* <Typography variant="h6" marginBottom={2}>Сведения о сотруднике {editMode ? '(edit)' : null}</Typography>
-                {fields.filter(field => field.showInDetails).map(field => {
-                    if (field.type === "autocomplete")
-                        return (
-                            <Autocomplete
-                                disablePortal
-                                id={field.name}
-                                key={field.name}
-                                readOnly={!editMode}
-                                fullWidth
-                                options={autoOptions(field.options)}
-                                value={getFieldValue(field.name)}
-                                onChange={(event, newValue) => onChangeField(field.name, newValue)}
-                                renderInput={(params) => <TextField {...params} fullWidth label={field.label} />}
-                            />
-                        )
-                    return (
-                        <TextField
-                            id={field.name}
-                            key={field.name}
-                            label={field.label}
-                            type={field.type}
-                            value={getFieldValue(field.name)}
-                            onChange={(event) => onChangeField(field.name, event.target.value)}
-                            fullWidth
-                            InputProps={{
-                                readOnly: !editMode,
-                            }}
-                        />
-                    )
-                })}
-                <Box sx={{width: '100%'}}>
-                    {!editMode ?
-                    <Fab color="primary" aria-label="edit" onClick={enterEditMode}>
-                        <Edit />
-                    </Fab>
-                    : 
-                    <Box sx={{width: '100%', display: 'flex', justifyContent: 'space-between', height: 56, alignItems: 'center'}}>
-                        <Button onClick={cancelChanges}>отменить</Button>
-                        <Button variant="contained" onClick={saveChanges}>Сохранить</Button> 
-                    </Box>
-                    }
-                </Box> */}
                 <UpdateWorkerForm selectedWorker={selectedWorker} onClose={onClose}/>
             </Box>
         </Modal>

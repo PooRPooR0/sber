@@ -10,7 +10,6 @@ import getDefaultSchema from '../../schemas/defaultSchema'
 
 const NewWorkerForm = () => {
     const fields = useSelector((state) => state.fields.value)
-    const workers = useSelector((state) => state.workers.value)
     const navigate = useNavigate()
     const { autoOptions } = useAutoOptions()
     const dispatch = useDispatch()
@@ -29,7 +28,7 @@ const NewWorkerForm = () => {
 
     const createAndExit = () => {
         formik.handleSubmit()
-        // if (formi) navigate('/')
+        if (formik.isValid) navigate('/')
     }
 
     const handleChangeAutoField = (fieldName, newValue) => {
